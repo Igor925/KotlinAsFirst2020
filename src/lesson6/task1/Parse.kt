@@ -74,7 +74,34 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val setNumbers = setOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17" ,"18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31")
+    val months = mapOf("января" to "01", "февраля" to "02", "марта" to "03", "апреля" to "04", "мая" to "05", "июня" to "06", "июля" to "07", "августа" to "08", "сентября" to "09", "октября" to "10", "ноября" to "11", "декабря" to "12")
+    val allMonths = setOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    try {
+        val parts = str.split(" ")
+        var number = parts[0]
+        var month = parts[1]
+        val year = parts[2]
+        if (month == "февраля" || number == "29" || number == "30"|| number == "31") return ""
+        for (index in setNumbers) {
+            if (number in setNumbers) number else return ""
+
+        }
+        if (number.length == 1) {
+            number = String.format("0%1s", number)
+        }
+        for (i in allMonths) {
+            if (month in allMonths) month else return ""
+        }
+        for ((monthInMap, monthInNumber) in months) {
+            if (monthInMap == month) month = monthInNumber
+        }
+        return String.format("%2s.%2s.%4s", number, month, year)
+    } catch (exception: Exception) {
+        return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
