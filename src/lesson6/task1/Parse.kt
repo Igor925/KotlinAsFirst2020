@@ -83,16 +83,16 @@ fun dateStrToDigit(str: String): String {
         var number = parts[0]
         var month = parts[1]
         val year = parts[2]
-        if (month == "февраля" || number == "29" || number == "30"|| number == "31") return ""
+        if (month == "февраля" && ((year.toInt() / 4 != 0 || year.toInt() / 400 != 0) || year.toInt() / 100 == 0) && (number == "29" || number == "30" || number == "31")) return ""
         for (index in setNumbers) {
-            if (number in setNumbers) number else return ""
-
+            if (number in setNumbers) break else return ""
         }
+        if (number.toInt() < 0 || number.toInt() > 31) return ""
         if (number.length == 1) {
             number = String.format("0%1s", number)
         }
         for (i in allMonths) {
-            if (month in allMonths) month else return ""
+            if (month in allMonths) break else return ""
         }
         for ((monthInMap, monthInNumber) in months) {
             if (monthInMap == month) month = monthInNumber
