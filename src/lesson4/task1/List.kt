@@ -260,4 +260,34 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val at0 = n.toString()
+    val at1 = at0.padStart(6, '0')
+    val at2 = at1.reversed()
+    var result1 = at2[0].toString().toInt()
+    val result2 = at2[1].toString().toInt()
+    val result3 = at2[2].toString().toInt()
+    var result4 = at2[3].toString().toInt()
+    val result5 = at2[4].toString().toInt()
+    val result6 = at2[5].toString().toInt()
+    val result11 = (at2[1].toString() + at2[0].toString()).toInt()
+    val resultThousands11 = (at2[4].toString() + at2[3].toString()).toInt()
+    val tis = (at2[5].toString() + at2[4].toString() + at2[3].toString()).toInt()
+
+    result1 = if (result2 == 1) result11 else result1
+    result4 = if (result5 == 1) resultThousands11 else result4
+
+    val tisha = when (result4) {
+        in 1..1 -> " тысяча"
+        in 2..4 -> " тысячи"
+        in 5..19 -> " тысяч"
+        else -> if (tis != 0) " тысяч" else ""
+    }
+
+    val choice0_19 = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять", " десять", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
+    val choice20_90 = listOf("", "", " двадцать", " тридцать", "сорок", " пятьдесят", " шестьдесят", " семьдесят", " восемьдесят", " девяносто")
+    val choice100_900 = listOf("", " сто", " двести", " триста", " четыреста", " пятьсот", " шестьсот", " семьсот", " восемьсот", " девятьсот")
+    val choice1000_1009 = listOf("", " одна", " две", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять", " десять", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
+
+    return ((choice100_900[result6]) + (choice20_90[result5]) + (choice1000_1009[result4]) + (tisha) + (choice100_900[result3]) + (choice20_90[result2]) + (choice0_19[result1])).drop(1)
+}
