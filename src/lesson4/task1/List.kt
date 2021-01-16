@@ -272,7 +272,7 @@ fun russian(n: Int): String {
     val result6 = at2[5].toString().toInt()
     val result11 = (at2[1].toString() + at2[0].toString()).toInt()
     val resultThousands11 = (at2[4].toString() + at2[3].toString()).toInt()
-    val tis = (at2[5].toString() + at2[4].toString() + at2[3].toString()).toInt()
+    val thousands = (at2[5].toString() + at2[4].toString() + at2[3].toString()).toInt()
 
     result1 = if (result2 == 1) result11 else result1
     result4 = if (result5 == 1) resultThousands11 else result4
@@ -281,7 +281,7 @@ fun russian(n: Int): String {
         in 1..1 -> " тысяча"
         in 2..4 -> " тысячи"
         in 5..19 -> " тысяч"
-        else -> if (tis != 0) " тысяч" else ""
+        else -> if (thousands != 0) " тысяч" else ""
     }
 
     val choice0_19 = listOf("", " один", " два", " три", " четыре", " пять", " шесть", " семь", " восемь", " девять", " десять", " одиннадцать", " двенадцать", " тринадцать", " четырнадцать", " пятнадцать", " шестнадцать", " семнадцать", " восемнадцать", " девятнадцать")
