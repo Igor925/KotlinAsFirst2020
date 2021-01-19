@@ -450,6 +450,8 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     writer.write(line.take(indexLhv + 2))
     writer.newLine()
     writer.write(" $result")
+
+
     writer.close()
 }
 
@@ -504,18 +506,18 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     writer.write(line.take(firstDeductionQuantity + 2))
     writer.newLine()
     writer.write(firstResult.toString().padStart(firstDeductionQuantity + 2) + shiftSymbol)
-    val transfer = firstResult.toString() + shiftSymbol
+    var transfer = firstResult.toString() + shiftSymbol
     var i = 0
     while (i < lastIndex) {
         if (rhv > lhv) {
             break
         }
-        shiftSymbol = allRemains.drop(1).take(1)
+        shiftSymbol = allRemains.drop(1+i).take(1)
         result = result.drop(1)
         val deduction = (result.first().toString().toInt()) * rhv
         val quantitySymbolDeduction = deduction.toString().lastIndex
         val quantityLines = line.take(quantitySymbolDeduction + 2)
-        val transfer = transfer.toInt() - deduction
+        transfer = (transfer.toInt() - deduction).toString()
         var indention = 2
         writer.newLine()
         writer.write(("-$deduction").padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
@@ -523,7 +525,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         writer.write(quantityLines.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
         writer.newLine()
         if (i != lastIndex - 1) {
-            writer.write((transfer.toString() + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
+            writer.write((transfer + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
+            transfer = (transfer + shiftSymbol)
         } else {
             writer.write(finalRemainder.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
         }
