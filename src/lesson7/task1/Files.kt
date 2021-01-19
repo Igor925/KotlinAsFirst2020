@@ -515,7 +515,8 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         shiftSymbol = allRemains.drop(1+i).take(1)
         result = result.drop(1)
         val deduction = (result.first().toString().toInt()) * rhv
-        val quantitySymbolDeduction = deduction.toString().lastIndex
+        var quantitySymbolDeduction = deduction.toString().lastIndex
+        if (transfer.lastIndex>deduction.toString().lastIndex) quantitySymbolDeduction = transfer.lastIndex-1
         val quantityLines = line.take(quantitySymbolDeduction + 2)
         transfer = (transfer.toInt() - deduction).toString()
         var indention = 2
