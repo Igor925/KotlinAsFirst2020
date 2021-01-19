@@ -442,7 +442,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     while (i < indexRhv + 1) {
         writer.newLine()
         writer.write(plus + ((transferSymbol.toInt() * lhv)).toString().padStart(indexLhv + 1 - i))
-        transferSymbol = allRemains.dropLast(1).takeLast(1)
+        transferSymbol = allRemains.dropLast(1 + i).takeLast(1)
         plus = "+"
         i += 1
     }
@@ -450,7 +450,6 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     writer.write(line.take(indexLhv + 2))
     writer.newLine()
     writer.write(" $result")
-    writer.newLine()
     writer.close()
 }
 
