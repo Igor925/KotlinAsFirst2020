@@ -516,7 +516,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         val deduction = (result.first().toString().toInt()) * rhv
         val quantitySymbolDeduction = deduction.toString().lastIndex
         val quantityLines = line.take(quantitySymbolDeduction + 2)
-        val transfer1 = transfer.toInt() - deduction
+        val transfer = transfer.toInt() - deduction
         var indention = 2
         writer.newLine()
         writer.write(("-$deduction").padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
@@ -524,7 +524,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         writer.write(quantityLines.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
         writer.newLine()
         if (i != lastIndex - 1) {
-            writer.write((transfer1.toString() + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
+            writer.write((transfer.toString() + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
         } else {
             writer.write(finalRemainder.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
         }
