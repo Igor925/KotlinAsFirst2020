@@ -485,7 +485,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val line = "-------------------"
     val space = "                    "
     var firstSpace = ""
-    var firstSpace1=0
+    var firstSpace1 = 0
     val firstDeduction = result.first().toString().toInt() * rhv
     val firstDeductionQuantity = firstDeduction.toString().lastIndex
     val firstSpaceBeforeTheTotal = (all1 + 4) - (firstDeductionQuantity + 1)
@@ -499,8 +499,11 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     }
     var simvol = " "
     if (all1 == (firstDeductionQuantity + 1)) {
-        simvol = ""
-        firstSpace = ""}
+        if (lhv / rhv < 10) {
+            simvol = ""
+            firstSpace = ""
+        }
+    }
     if (lhv < rhv) {
         simvol = " "
         firstSpace = ""
@@ -545,7 +548,5 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         i += 1
     }
     writer.close()
-
 }
-
 
