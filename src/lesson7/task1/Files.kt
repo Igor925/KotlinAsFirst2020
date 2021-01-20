@@ -483,7 +483,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val all = lhv.toString()
     val all1 = all.lastIndex
     val line = "-------------------"
-    val space = "                    "
+    val space = "               "
     var firstSpace = ""
     var firstSpace1 = 0
     val firstDeduction = result.first().toString().toInt() * rhv
@@ -497,55 +497,67 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         firstSpace = " "
         firstSpace1 = 1
     }
+    var sum1 = 2
     var simvol = " "
-    if (all1 == (firstDeductionQuantity + 1)) {
-        if (lhv / rhv < 10) {
+    if (lhv / rhv == 0) {
+        if (all1 !== 0) {
             simvol = ""
-            firstSpace = ""
+            sum1 = 1
         }
-    }
-    if (lhv < rhv) {
-        simvol = " "
-        firstSpace = ""
-    }
-    val firstResult = firstDeductionOutOfEverything - firstDeduction
-    val firstDeductionOutOfEverythingQuantity = firstDeductionOutOfEverything.toString().lastIndex + 1
-    val allRemains = all.drop(firstDeductionOutOfEverythingQuantity)
-    var shiftSymbol = allRemains.take(1)
-    writer.write("$simvol$lhv | $rhv")
-    writer.newLine()
-    writer.write(firstSpace + "-" + firstDeduction + space.take(firstSpaceBeforeTheTotal - firstSpace1) + result)
-    writer.newLine()
-    writer.write(firstSpace + line.take(firstDeductionQuantity + 2))
-    writer.newLine()
-    writer.write(firstSpace + firstResult.toString().padStart(firstDeductionQuantity + 2) + shiftSymbol)
-    var transfer = firstResult.toString() + shiftSymbol
-    var i = 0
-    while (i < lastIndex) {
-        if (rhv > lhv) {
-            break
+        writer.write(simvol + lhv.toString() + " | " + rhv.toString())
+        writer.newLine()
+        writer.write("-0".padStart(all1 + sum1) + "   0")
+        writer.newLine()
+        writer.write(line.take(all1 + sum1))
+        writer.newLine()
+        writer.write(simvol + lhv.toString())
+        writer.newLine()
+    } else {
+        if (all1 == (firstDeductionQuantity + 1)) {
+            if (lhv / rhv < 10) {
+                simvol = ""
+                firstSpace = ""
+            }
         }
-        shiftSymbol = allRemains.drop(1+i).take(1)
-        result = result.drop(1)
-        val deduction = (result.first().toString().toInt()) * rhv
-        var quantitySymbolDeduction = deduction.toString().lastIndex
-        if (transfer.lastIndex > deduction.toString().lastIndex) quantitySymbolDeduction = transfer.lastIndex - 1
-        val quantityLines = line.take(quantitySymbolDeduction + 2)
-        transfer = (transfer.toInt() - deduction).toString()
-        var indention = 2
+        val firstResult = firstDeductionOutOfEverything - firstDeduction
+        val firstDeductionOutOfEverythingQuantity = firstDeductionOutOfEverything.toString().lastIndex + 1
+        val allRemains = all.drop(firstDeductionOutOfEverythingQuantity)
+        var shiftSymbol = allRemains.take(1)
+        writer.write(simvol + lhv.toString() + " | " + rhv.toString())
         writer.newLine()
-        writer.write(("-$deduction").padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+        writer.write(firstSpace + "-" + firstDeduction + space.take(firstSpaceBeforeTheTotal - firstSpace1) + result)
         writer.newLine()
-        writer.write(quantityLines.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+        writer.write(firstSpace + line.take(firstDeductionQuantity + 2))
         writer.newLine()
-        if (i != lastIndex - 1) {
-            writer.write((transfer + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
-            transfer = (transfer + shiftSymbol)
-        } else {
-            writer.write(finalRemainder.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+        writer.write(firstSpace + firstResult.toString().padStart(firstDeductionQuantity + 2) + shiftSymbol)
+        var transfer = firstResult.toString() + shiftSymbol
+        var i = 0
+        while (i < lastIndex) {
+            if (rhv > lhv) {
+                break
+            }
+            shiftSymbol = allRemains.drop(1 + i).take(1)
+            result = result.drop(1)
+            val deduction = (result.first().toString().toInt()) * rhv
+            var quantitySymbolDeduction = deduction.toString().lastIndex
+            if (transfer.lastIndex > deduction.toString().lastIndex) quantitySymbolDeduction = transfer.lastIndex - 1
+            val quantityLines = line.take(quantitySymbolDeduction + 2)
+            transfer = (transfer.toInt() - deduction).toString()
+            var indention = 2
+            writer.newLine()
+            writer.write(("-$deduction").padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+            writer.newLine()
+            writer.write(quantityLines.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+            writer.newLine()
+            if (i != lastIndex - 1) {
+                writer.write((transfer + shiftSymbol).padStart(firstDeductionOutOfEverythingQuantity + 2 + i + 1))
+                transfer = (transfer + shiftSymbol)
+            } else {
+                writer.write(finalRemainder.padStart(firstDeductionOutOfEverythingQuantity + 2 + i))
+            }
+            indention += 1
+            i += 1
         }
-        indention += 1
-        i += 1
     }
     writer.close()
 }
