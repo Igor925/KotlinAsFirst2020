@@ -483,7 +483,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val all = lhv.toString()
     val all1 = all.lastIndex
     val line = "-------------------"
-    val space = "               "
+    val space = "                    "
     var firstSpace = ""
     var firstSpace1=0
     val firstDeduction = result.first().toString().toInt() * rhv
@@ -497,11 +497,19 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         firstSpace = " "
         firstSpace1 = 1
     }
+    var simvol = " "
+    if (all1 == (firstDeductionQuantity + 1)) {
+        simvol = ""
+        firstSpace = ""}
+    if (lhv < rhv) {
+        simvol = " "
+        firstSpace = ""
+    }
     val firstResult = firstDeductionOutOfEverything - firstDeduction
     val firstDeductionOutOfEverythingQuantity = firstDeductionOutOfEverything.toString().lastIndex + 1
     val allRemains = all.drop(firstDeductionOutOfEverythingQuantity)
     var shiftSymbol = allRemains.take(1)
-    writer.write((" $lhv | $rhv"))
+    writer.write("$simvol$lhv | $rhv")
     writer.newLine()
     writer.write(firstSpace + "-" + firstDeduction + space.take(firstSpaceBeforeTheTotal - firstSpace1) + result)
     writer.newLine()
@@ -518,7 +526,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         result = result.drop(1)
         val deduction = (result.first().toString().toInt()) * rhv
         var quantitySymbolDeduction = deduction.toString().lastIndex
-        if (transfer.lastIndex>deduction.toString().lastIndex) quantitySymbolDeduction = transfer.lastIndex-1
+        if (transfer.lastIndex > deduction.toString().lastIndex) quantitySymbolDeduction = transfer.lastIndex - 1
         val quantityLines = line.take(quantitySymbolDeduction + 2)
         transfer = (transfer.toInt() - deduction).toString()
         var indention = 2
@@ -537,7 +545,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
         i += 1
     }
     writer.close()
-}
 
+}
 
 
